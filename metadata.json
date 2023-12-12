@@ -1,9 +1,13 @@
 {
-    "Identifier": "",
-    "Slug": "",
-    "Status": "",
-    "Title": "",
-    "Description": "",
+    "Identifier": "eos9ym3",
+    "Slug": "MRlogP",
+    "Status": "In progress",
+    "Title": "Neural network-based logP prediction for druglike small molecules",
+    "Description": [
+        "The model MRlogP",
+        "is a neural network-based predictor designed for accurately estimating the lipophilicity (logP) of small druglike molecules.The primary objective of MRlogP is to improve logP prediction accuracy",
+        "allowing for more informed decision-making in drug discovery."
+    ],
     "Mode": "",
     "Task": [],
     "Input": [],
@@ -12,8 +16,11 @@
     "Output Type": [],
     "Output Shape": "",
     "Interpretation": "",
-    "Tag": [],
-    "Publication": "",
-    "Source Code": "",
-    "License": ""
+    "Tag": [
+        "Lipophilicity",
+        "LogP"
+    ],
+    "Publication": "https://www.mdpi.com/2227-9717/9/11/2029/htm",
+    "Source Code": "https://github.com/JustinYKC/MRlogP",
+    "License": "MIT"
 }
