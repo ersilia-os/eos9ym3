@@ -8,14 +8,14 @@
         "is a neural network-based predictor designed for accurately estimating the lipophilicity (logP) of small druglike molecules.The primary objective of MRlogP is to improve logP prediction accuracy",
         "allowing for more informed decision-making in drug discovery."
     ],
-    "Mode": "",
-    "Task": [],
-    "Input": [],
-    "Input Shape": "",
-    "Output": [],
-    "Output Type": [],
-    "Output Shape": "",
-    "Interpretation": "",
+    "Mode": "Pretrained",
+    "Task": ["Regression"],
+    "Input": ["Compound"],
+    "Input Shape": "Single",
+    "Output": ["Descriptor"],
+    "Output Type": ["Float"],
+    "Output Shape": "Single",
+    "Interpretation": "lower logP values generally suggest increased water solubility, which may be desirable for drug candidates. Higher logP values indicate greater hydrophobicity, potentially impacting factors like bioavailability.",
     "Tag": [
         "Lipophilicity",
         "LogP"
