@@ -9,6 +9,8 @@ from rdkit.Chem.rdMolDescriptors import GetUSRCAT
 from rdkonf6 import RDKonf
 import pandas as pd
 import numpy as np
+import os
+
 
 print(RDKonf)
 
@@ -23,11 +25,21 @@ class MRLogPDescriptor_Generator:
         # Load SMILES from CSV using pandas
         df = pd.read_csv(input_csv_filepath)
         
-        # Print the column names for reference
-        print("Column Names:", df.columns.tolist())
-        
-        # Replace 'replace_this_with_correct_column_name' with 'smiles'
-        smiles_column_name = 'smiles'
+        # Check for a column containing valid SMILES
+        smiles_column_name = None
+        for col in df.columns:
+            try:
+                # Attempt to parse the column as SMILES
+                _ = Chem.MolFromSmiles(df[col][0])
+                smiles_column_name = col
+                break
+            except (ValueError, TypeError):
+                continue
+
+        # Check if a valid SMILES column is found
+        if smiles_column_name is None:
+            raise ValueError("No column containing valid SMILES found in the DataFrame.")
+
         smiles_data = df[smiles_column_name].astype(str)
         mols = [(smiles, f"Mol_{i}") for i, smiles in enumerate(smiles_data)]
 
@@ -93,3 +105,4 @@ if __name__ == "__main__":
     descriptor_generator = MRLogPDescriptor_Generator()
 
     descriptor_generator.write_mrlogp_descriptor_csv(Path(args.input_csv), Path(args.output_csv))
+

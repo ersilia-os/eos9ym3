@@ -73,7 +73,7 @@ class MRlogP():
         scalar_path = os.path.abspath(os.path.join(root, "scaler3.pkl"))
         with open(scalar_path, 'rb') as scaler_file:
             self.scaler = pickle.load(scaler_file)
-        print(scaler_file)
+        
 
         testset = pd.read_csv(infile_testing)
         if query_mode is False:

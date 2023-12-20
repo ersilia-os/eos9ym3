@@ -28,11 +28,10 @@ def run_descriptor_generation(input_csv, output_csv):
     subprocess.run(["python", smi_to_descriptors, input_csv, output_csv])
 
 # Run the descriptor generation script
-descriptor_output = "descriptors_temp.csv"
+# descriptor_output = "descriptors_temp.csv"
+descriptor_output = os.path.abspath(os.path.join(root, "..", "..", "..", "descriptors_temp.csv"))
 run_descriptor_generation(input_file, descriptor_output)
 
-print(descriptor_output)
-descriptor_output = os.path.abspath(os.path.join(root, "..", "..", "framework", "code", "descriptors_temp.csv"))
 
 # Initialize MRlogP
 mrlogp = MRlogP()
@@ -42,25 +41,30 @@ with open(descriptor_output, "r") as f:
     reader = csv.reader(f)
     next(reader)  # skip header
     descriptors_list = [r for r in reader]
-
-
+ 
+print(descriptors_list)
 # run model
 outputs = mrlogp.predict_logp(query_csv_file=descriptor_output, model_path=ckpt_file)
+print(outputs)
 
 # check input and output have the same length
 input_len = len(descriptors_list)
 output_len = len(outputs)
 assert input_len == output_len
 
+
 # write output in a .csv file
 with open(output_file, "w") as f:
     writer = csv.writer(f)
-    writer.writerow(["value"])  # header
+    writer.writerow(["value"]) # header
     for o in outputs:
         writer.writerow([o])
 
-# # Remove temporary descriptor file
-# os.remove(descriptor_output)
+
+print(output_file)
+
+# Remove temporary descriptor file
+os.remove(descriptor_output)
 
 # print("Model Outputs:")
 # print(outputs)
