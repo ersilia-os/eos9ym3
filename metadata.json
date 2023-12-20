@@ -4,9 +4,7 @@
     "Status": "In progress",
     "Title": "Neural network-based logP prediction for druglike small molecules",
     "Description": [
-        "The model MRlogP",
-        "is a neural network-based predictor designed for accurately estimating the lipophilicity (logP) of small druglike molecules.The primary objective of MRlogP is to improve logP prediction accuracy",
-        "allowing for more informed decision-making in drug discovery."
+        "The authors use a two-step approach to build a model that accurately predicts the lipophilicity (LogP) of small molecules. First, they train the model on a large amount of low accuracy predicted LogP values and then they fine-tune the network using a small, accurate dataset of 244 druglike compounds. The model achieves an average root mean squared error of 0.988 and 0.715 against druglike molecules from Reaxys and PHYSPROP."
     ],
     "Mode": "Pretrained",
     "Task": ["Regression"],
