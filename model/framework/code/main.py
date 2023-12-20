@@ -4,7 +4,6 @@ import csv
 import sys
 from rdkit import Chem
 from rdkit.Chem.Descriptors import MolWt
-from openbabel import openbabel
 import subprocess
 import pickle
 from mrlogp import MRlogP
