@@ -1,6 +1,6 @@
 {
     "Identifier": "eos9ym3",
-    "Slug": "MRlogP",
+    "Slug": "mrlogp",
     "Status": "In progress",
     "Title": "Neural network-based logP prediction for druglike small molecules",
     "Description": [
@@ -13,7 +13,7 @@
     "Output": ["Descriptor"],
     "Output Type": ["Float"],
     "Output Shape": "Single",
-    "Interpretation": "lower logP values generally suggest increased water solubility, which may be desirable for drug candidates. Higher logP values indicate greater hydrophobicity, potentially impacting factors like bioavailability.",
+    "Interpretation": "PRedicted LogP of small molecules",
     "Tag": [
         "Lipophilicity",
         "LogP"
