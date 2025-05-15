@@ -2,34 +2,45 @@
     "Identifier": "eos9ym3",
     "Slug": "mrlogp",
     "Status": "Ready",
-    "Title": "Neural network-based logP prediction for druglike small molecules",
-    "Description": "The authors use a two-step approach to build a model that accurately predicts the lipophilicity (LogP) of small molecules. First, they train the model on a large amount of low accuracy predicted LogP values and then they fine-tune the network using a small, accurate dataset of 244 druglike compounds. The model achieves an average root mean squared error of 0.988 and 0.715 against druglike molecules from Reaxys and PHYSPROP.",
-    "Mode": "Pretrained",
-    "Task": [
-        "Regression"
-    ],
+    "Title": "MRlogP: neural network-based logP prediction for druglike small molecules",
+    "Description": "The authors use a two-step approach to build a model that accurately predicts the lipophilicity (LogP) of small molecules. First, they train the model on a large amount of low accuracy predicted LogP values and then they fine-tune the network using a small, accurate dataset of 244 druglike compounds. The model achieves an average root mean squared error of 0.988 and 0.715 against druglike molecules from Reaxys and PHYSPROP.\n",
+    "Source": "Local",
+    "Source Type": "External",
     "Input": [
         "Compound"
     ],
-    "Input Shape": "Single",
+    "Input Dimension": 1,
+    "Task": "Annotation",
+    "Subtask": "Property calculation or prediction",
+    "Biomedical Area": [
+        "ADMET"
+    ],
+    "Target Organism": [
+        "Not Applicable"
+    ],
     "Output": [
-        "Descriptor"
+        "Value"
     ],
-    "Output Type": [
-        "Float"
-    ],
-    "Output Shape": "Single",
-    "Interpretation": "PRedicted LogP of small molecules",
+    "Output Dimension": 1,
+    "Output Consistency": "Fixed",
+    "Interpretation": "Predicted LogP of small molecules",
     "Tag": [
         "Lipophilicity",
         "LogP"
     ],
     "Publication": "https://www.mdpi.com/2227-9717/9/11/2029/htm",
+    "Publication Type": "Peer reviewed",
+    "Publication Year": 2021,
     "Source Code": "https://github.com/JustinYKC/MRlogP",
     "License": "MIT",
-    "S3": "https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos9ym3.zip",
+    "Contributor": "leilayesufu",
+    "Incorporation Date": "2023-12-12",
     "DockerHub": "https://hub.docker.com/r/ersiliaos/eos9ym3",
     "Docker Architecture": [
         "AMD64"
+    ],
+    "S3": "https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos9ym3.zip",
+    "Deployment": [
+        "Local"
     ]
 }
