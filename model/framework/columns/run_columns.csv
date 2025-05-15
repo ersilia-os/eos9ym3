@@ -1,2 +1,2 @@
 name,type,direction,description
-logp,float,intermediate,Predicted logP value of the compound
+logp,float,low,Predicted logP value of the compound

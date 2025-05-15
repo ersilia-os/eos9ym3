@@ -1,4 +1,4 @@
-import openbabel
+from openbabel import openbabel
 import argparse
 from rdkit import Chem
 from pathlib import Path
@@ -12,7 +12,7 @@ import numpy as np
 import os
 
 
-print(RDKonf)
+#print(RDKonf)
 
 class MRLogPDescriptor_Generator:
     mrlogP_descriptor_length = 128 + 128 + 60
@@ -79,14 +79,14 @@ class MRLogPDescriptor_Generator:
             fp4_p4 = [float(x) for x in list(format(fp4fp[3], '032b'))]
             logP_descriptors[128:256] = fp4_p1 + fp4_p2 + fp4_p3 + fp4_p4
 
-            print("LEN = ", len(usrcat_descriptors))
+            # print("LEN = ", len(usrcat_descriptors))
             for i, v in enumerate(usrcat_descriptors):
                 logP_descriptors[256 + i] = float(v)
-            print("xxxxxxxxxxxxxxx", len(logP_descriptors[256:]))
+            # print("xxxxxxxxxxxxxxx", len(logP_descriptors[256:]))
             descriptor_file.write(rdkit_mol.GetProp("_Name") + "," +
                                   ",".join([str(int(d)) for d in logP_descriptors[0:256]]) + "," +
                                   ",".join([f"{d}" for d in logP_descriptors[256:]]) + "\n")
-            print(logP_descriptors)
+            # print(logP_descriptors)
 
 
 if __name__ == "__main__":

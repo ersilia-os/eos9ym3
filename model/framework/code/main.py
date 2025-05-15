@@ -8,7 +8,6 @@ import subprocess
 import pickle
 from mrlogp import MRlogP
 
-print(MRlogP)
 # parse arguments
 input_file = sys.argv[1]
 output_file = sys.argv[2]
@@ -42,10 +41,8 @@ with open(descriptor_output, "r") as f:
     next(reader)  # skip header
     descriptors_list = [r for r in reader]
  
-print(descriptors_list)
 # run model
 outputs = mrlogp.predict_logp(query_csv_file=descriptor_output, model_path=ckpt_file)
-print(outputs)
 
 # check input and output have the same length
 input_len = len(descriptors_list)
@@ -60,8 +57,6 @@ with open(output_file, "w") as f:
     for o in outputs:
         writer.writerow([o])
 
-
-print(output_file)
 
 # Remove temporary descriptor file
 os.remove(descriptor_output)
