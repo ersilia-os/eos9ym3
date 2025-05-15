@@ -3,21 +3,18 @@
     "Slug": "mrlogp",
     "Status": "Ready",
     "Title": "MRlogP: neural network-based logP prediction for druglike small molecules",
-    "Description": "The authors use a two-step approach to build a model that accurately predicts the lipophilicity (LogP) of small molecules. First, they train the model on a large amount of low accuracy predicted LogP values and then they fine-tune the network using a small, accurate dataset of 244 druglike compounds. The model achieves an average root mean squared error of 0.988 and 0.715 against druglike molecules from Reaxys and PHYSPROP.\n",
+    "Description": "The authors use a two-step approach to build a model that accurately predicts the lipophilicity (LogP) of small molecules. First, they train the model on a large amount of low accuracy predicted LogP values and then they fine-tune the network using a small, accurate dataset of 244 druglike compounds. The model achieves an average root mean squared error of 0.988 and 0.715 against druglike molecules from Reaxys and PHYSPROP.",
+    "Deployment": [
+        "Local"
+    ],
     "Source": "Local",
     "Source Type": "External",
+    "Task": "Annotation",
+    "Subtask": "Property calculation or prediction",
     "Input": [
         "Compound"
     ],
     "Input Dimension": 1,
-    "Task": "Annotation",
-    "Subtask": "Property calculation or prediction",
-    "Biomedical Area": [
-        "ADMET"
-    ],
-    "Target Organism": [
-        "Not Applicable"
-    ],
     "Output": [
         "Value"
     ],
@@ -28,19 +25,22 @@
         "Lipophilicity",
         "LogP"
     ],
-    "Publication": "https://www.mdpi.com/2227-9717/9/11/2029/htm",
+    "Biomedical Area": [
+        "ADMET"
+    ],
+    "Target Organism": [
+        "Not Applicable"
+    ],
     "Publication Type": "Peer reviewed",
     "Publication Year": 2021,
+    "Publication": "https://www.mdpi.com/2227-9717/9/11/2029/htm",
     "Source Code": "https://github.com/JustinYKC/MRlogP",
     "License": "MIT",
     "Contributor": "leilayesufu",
     "Incorporation Date": "2023-12-12",
+    "S3": "https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos9ym3.zip",
     "DockerHub": "https://hub.docker.com/r/ersiliaos/eos9ym3",
     "Docker Architecture": [
         "AMD64"
-    ],
-    "S3": "https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos9ym3.zip",
-    "Deployment": [
-        "Local"
     ]
 }
