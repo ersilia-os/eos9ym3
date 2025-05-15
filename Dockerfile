@@ -1,7 +1,7 @@
 FROM bentoml/model-server:0.11.0-py310
 MAINTAINER ersilia
 
-RUN conda install -c conda-forge openbabel -y
+RUN conda install -c conda-forge openbabel=3.1.1 -y
 RUN pip install rdkit==2023.9.2
 RUN pip install pandas==1.3.5
 RUN pip install protobuf==3.19.6
