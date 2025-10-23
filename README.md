@@ -2,8 +2,7 @@
 
 The authors use a two-step approach to build a model that accurately predicts the lipophilicity (LogP) of small molecules. First, they train the model on a large amount of low accuracy predicted LogP values and then they fine-tune the network using a small, accurate dataset of 244 druglike compounds. The model achieves an average root mean squared error of 0.988 and 0.715 against druglike molecules from Reaxys and PHYSPROP.
 
-This model was incorporated on 2023-12-12.
-
+This model was incorporated on 2023-12-12.Last packaged on 2025-10-23.
 
 ## Information
 ### Identifiers
@@ -36,17 +35,17 @@ Below are the **Output Columns** of the model:
 - **Source:** `Local`
 - **Source Type:** `External`
 - **DockerHub**: [https://hub.docker.com/r/ersiliaos/eos9ym3](https://hub.docker.com/r/ersiliaos/eos9ym3)
-- **Docker Architecture:** `AMD64`
+- **Docker Architecture:** `AMD64`, `ARM64`
 - **S3 Storage**: [https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos9ym3.zip](https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos9ym3.zip)
 
 ### Resource Consumption
 - **Model Size (Mb):** `45`
 - **Environment Size (Mb):** `2467`
-- **Image Size (Mb):** `2479.8`
+- **Image Size (Mb):** `2491.04`
 
 **Computational Performance (seconds):**
-- 10 inputs: `41.08`
-- 100 inputs: `1418.48`
+- 10 inputs: `31.35`
+- 100 inputs: `482.33`
 - 10000 inputs: `-1`
 
 ### References
