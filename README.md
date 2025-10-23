@@ -4,6 +4,7 @@ The authors use a two-step approach to build a model that accurately predicts th
 
 This model was incorporated on 2023-12-12.
 
+
 ## Information
 ### Identifiers
 - **Ersilia Identifier:** `eos9ym3`
@@ -13,7 +14,7 @@ This model was incorporated on 2023-12-12.
 - **Task:** `Annotation`
 - **Subtask:** `Property calculation or prediction`
 - **Biomedical Area:** `ADMET`
-- **Target Organism:** `Not Applicable`
+- **Target Organism:** `Any`
 - **Tags:** `Lipophilicity`, `LogP`
 
 ### Input
