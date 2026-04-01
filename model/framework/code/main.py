@@ -2,6 +2,7 @@
 import os
 import csv
 import sys
+import tempfile
 from rdkit import Chem
 from rdkit.Chem.Descriptors import MolWt
 import subprocess
@@ -26,23 +27,22 @@ smi_to_descriptors = os.path.abspath(os.path.join(root, "..", "..", "framework",
 def run_descriptor_generation(input_csv, output_csv):
     subprocess.run(["python", smi_to_descriptors, input_csv, output_csv])
 
-# Run the descriptor generation script
-# descriptor_output = "descriptors_temp.csv"
-descriptor_output = os.path.abspath(os.path.join(root, "..", "..", "..", "descriptors_temp.csv"))
-run_descriptor_generation(input_file, descriptor_output)
+# Run the descriptor generation script using a proper temp file
+with tempfile.TemporaryDirectory() as tmpdir:
+    descriptor_output = os.path.join(tmpdir, "descriptors_temp.csv")
+    run_descriptor_generation(input_file, descriptor_output)
 
+    # Initialize MRlogP
+    mrlogp = MRlogP()
 
-# Initialize MRlogP
-mrlogp = MRlogP()
+    # read descriptors from the generated CSV file
+    with open(descriptor_output, "r") as f:
+        reader = csv.reader(f)
+        next(reader)  # skip header
+        descriptors_list = [r for r in reader]
 
-# read descriptors from the generated CSV file
-with open(descriptor_output, "r") as f:
-    reader = csv.reader(f)
-    next(reader)  # skip header
-    descriptors_list = [r for r in reader]
- 
-# run model
-outputs = mrlogp.predict_logp(query_csv_file=descriptor_output, model_path=ckpt_file)
+    # run model
+    outputs = mrlogp.predict_logp(query_csv_file=descriptor_output, model_path=ckpt_file)
 
 # check input and output have the same length
 input_len = len(descriptors_list)
@@ -56,10 +56,6 @@ with open(output_file, "w") as f:
     writer.writerow(["logp"]) # header
     for o in outputs:
         writer.writerow([o])
-
-
-# Remove temporary descriptor file
-os.remove(descriptor_output)
 
 # print("Model Outputs:")
 # print(outputs)
