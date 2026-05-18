@@ -50,7 +50,7 @@ Below are the **Output Columns** of the model:
 
 ### References
 - **Source Code**: [https://github.com/JustinYKC/MRlogP](https://github.com/JustinYKC/MRlogP)
-- **Publication**: [https://www.mdpi.com/2227-9717/9/11/2029/htm](https://www.mdpi.com/2227-9717/9/11/2029/htm)
+- **Publication**: [https://doi.org/10.3390/pr9112029](https://doi.org/10.3390/pr9112029)
 - **Publication Type:** `Peer reviewed`
 - **Publication Year:** `2021`
 - **Ersilia Contributor:** [leilayesufu](https://github.com/leilayesufu)
