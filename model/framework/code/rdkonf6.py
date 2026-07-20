@@ -62,6 +62,7 @@ class RDKonf():
                 if nrot <= 7:
                     n = 50
             confIds = AllChem.EmbedMultipleConfs(mol, n)
+            d = []
             for confId in confIds:
                 ff = AllChem.UFFGetMoleculeForceField(mol, confId=confId)
                 AllChem.UFFOptimizeMolecule(mol, confId=confId)

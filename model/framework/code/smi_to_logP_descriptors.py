@@ -1,5 +1,6 @@
 from openbabel import openbabel
 import argparse
+import sys
 from rdkit import Chem
 from pathlib import Path
 from rdkit import RDLogger
@@ -53,40 +54,51 @@ class MRLogPDescriptor_Generator:
                                ",".join([f"usrcat-{i}" for i in range(60)]) + "\n")
 
         for mol in mols:
-            # Create RDKit and OpenBabel molecules
-            rdkit_mol = Chem.AddHs(self.rdkonf.smiles_to_3dmol(mol[0], mol[1]))
-            obConversion.ReadString(ob_mol, mol[0])
+            try:
+                # Create RDKit and OpenBabel molecules
+                candidate = self.rdkonf.smiles_to_3dmol(mol[0], mol[1])
+                if candidate is None:
+                    raise ValueError(f"no valid 3D conformer found for SMILES {mol[0]!r}")
+                rdkit_mol = Chem.AddHs(candidate)
+                obConversion.ReadString(ob_mol, mol[0])
 
-            # Generate Morgan/ECFP4
-            morgan_fingerprint = AllChem.GetMorganFingerprintAsBitVect(Chem.RemoveHs(rdkit_mol), 2, 128).ToBitString()
-            # Generate USRCAT
-            usrcat_descriptors = GetUSRCAT(rdkit_mol)
-            # Generate FP4
-            fp4fp = openbabel.vectorUnsignedInt()
-            fingerprinter = openbabel.OBFingerprint.FindFingerprint("FP4")
+                # Generate Morgan/ECFP4
+                morgan_fingerprint = AllChem.GetMorganFingerprintAsBitVect(Chem.RemoveHs(rdkit_mol), 2, 128).ToBitString()
+                # Generate USRCAT
+                usrcat_descriptors = GetUSRCAT(rdkit_mol)
+                # Generate FP4
+                fp4fp = openbabel.vectorUnsignedInt()
+                fingerprinter = openbabel.OBFingerprint.FindFingerprint("FP4")
 
-            fingerprinter.GetFingerprint(ob_mol, fp4fp)
-            openbabel.OBFingerprint.Fold(fingerprinter, fp4fp, 128)
+                fingerprinter.GetFingerprint(ob_mol, fp4fp)
+                openbabel.OBFingerprint.Fold(fingerprinter, fp4fp, 128)
 
-            logP_descriptors = np.full((self.mrlogP_descriptor_length), np.nan)
+                logP_descriptors = np.full((self.mrlogP_descriptor_length), np.nan)
 
-            for i, v in enumerate(morgan_fingerprint):
-                logP_descriptors[i] = float(v)
+                for i, v in enumerate(morgan_fingerprint):
+                    logP_descriptors[i] = float(v)
 
-            fp4_p1 = [float(x) for x in list(format(fp4fp[0], '032b'))]
-            fp4_p2 = [float(x) for x in list(format(fp4fp[1], '032b'))]
-            fp4_p3 = [float(x) for x in list(format(fp4fp[2], '032b'))]
-            fp4_p4 = [float(x) for x in list(format(fp4fp[3], '032b'))]
-            logP_descriptors[128:256] = fp4_p1 + fp4_p2 + fp4_p3 + fp4_p4
+                fp4_p1 = [float(x) for x in list(format(fp4fp[0], '032b'))]
+                fp4_p2 = [float(x) for x in list(format(fp4fp[1], '032b'))]
+                fp4_p3 = [float(x) for x in list(format(fp4fp[2], '032b'))]
+                fp4_p4 = [float(x) for x in list(format(fp4fp[3], '032b'))]
+                logP_descriptors[128:256] = fp4_p1 + fp4_p2 + fp4_p3 + fp4_p4
 
-            # print("LEN = ", len(usrcat_descriptors))
-            for i, v in enumerate(usrcat_descriptors):
-                logP_descriptors[256 + i] = float(v)
-            # print("xxxxxxxxxxxxxxx", len(logP_descriptors[256:]))
-            descriptor_file.write(rdkit_mol.GetProp("_Name") + "," +
-                                  ",".join([str(int(d)) for d in logP_descriptors[0:256]]) + "," +
-                                  ",".join([f"{d}" for d in logP_descriptors[256:]]) + "\n")
-            # print(logP_descriptors)
+                # print("LEN = ", len(usrcat_descriptors))
+                for i, v in enumerate(usrcat_descriptors):
+                    logP_descriptors[256 + i] = float(v)
+                # print("xxxxxxxxxxxxxxx", len(logP_descriptors[256:]))
+                descriptor_file.write(rdkit_mol.GetProp("_Name") + "," +
+                                      ",".join([str(int(d)) for d in logP_descriptors[0:256]]) + "," +
+                                      ",".join([f"{d}" for d in logP_descriptors[256:]]) + "\n")
+                # print(logP_descriptors)
+            except Exception as exc:
+                # A single problematic molecule (e.g. one RDKit can't embed in 3D) must not
+                # take down the whole batch - emit a NaN row so row count stays aligned with
+                # the input, and let downstream consumers treat it as a missing prediction.
+                print(f"[smi_to_logP_descriptors] Skipping {mol[1]} ({mol[0]!r}): {exc}", file=sys.stderr)
+                nan_row = ",".join(["nan"] * self.mrlogP_descriptor_length)
+                descriptor_file.write(mol[1] + "," + nan_row + "\n")
 
 
 if __name__ == "__main__":
