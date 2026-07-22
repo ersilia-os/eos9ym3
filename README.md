@@ -2,7 +2,7 @@
 
 The authors use a two-step approach to build a model that accurately predicts the lipophilicity (LogP) of small molecules. First, they train the model on a large amount of low accuracy predicted LogP values and then they fine-tune the network using a small, accurate dataset of 244 druglike compounds. The model achieves an average root mean squared error of 0.988 and 0.715 against druglike molecules from Reaxys and PHYSPROP.
 
-This model was incorporated on 2023-12-12.Last packaged on 2026-04-22.
+This model was incorporated on 2023-12-12.Last packaged on 2026-07-22.
 
 ## Information
 ### Identifiers
@@ -41,11 +41,11 @@ Below are the **Output Columns** of the model:
 ### Resource Consumption
 - **Model Size (Mb):** `45`
 - **Environment Size (Mb):** `2421`
-- **Image Size (Mb):** `2502.64`
+- **Image Size (Mb):** `2501.97`
 
 **Computational Performance (seconds):**
-- 10 inputs: `42.8`
-- 100 inputs: `496.4`
+- 10 inputs: `39.89`
+- 100 inputs: `492.72`
 - 10000 inputs: `-1`
 
 ### References
