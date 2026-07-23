@@ -84,6 +84,17 @@ class MRlogP():
         else:
             testset['id'] = testset.loc[:, "Name"]
 
+        # Rows for molecules whose 3D conformer/descriptors could not be generated
+        # (see smi_to_logP_descriptors.py) are written with NaN feature columns.
+        # astype('int64') on NaN raises IntCastingNaNError, so drop those rows here
+        # instead of letting a single bad molecule crash the whole batch; predict_logp
+        # reinserts NaN predictions for them so output length still matches the input.
+        feature_cols = (["ecfp4-"+str(x) for x in range(128)] +
+                         ["fp4-"+str(x) for x in range(128)] +
+                         ["usrcat-"+str(x) for x in range(60)])
+        valid_mask = ~testset.loc[:, feature_cols].isna().any(axis=1)
+        testset = testset.loc[valid_mask].reset_index(drop=True)
+
         x_ecfp4 = testset.loc[:, ["ecfp4-"+str(x) for x in range(128)]].astype('int64').astype('category').to_numpy()
         x_fp4 = testset.loc[:, ["fp4-"+str(x) for x in range(128)]].astype('int64').astype('category').to_numpy()
         x_usr = testset.loc[:, ["usrcat-"+str(x) for x in range(60)]].astype('float').to_numpy()
@@ -98,7 +109,7 @@ class MRlogP():
         if query_mode is False:
             return x, y
         else:
-            return x, cpd_name
+            return x, cpd_name, valid_mask.to_numpy()
     
     def predict_logp(self, query_csv_file:Path, model_path:Path):
         """
@@ -115,9 +126,10 @@ class MRlogP():
         model_path: (File path object, required)
             The path of the model used as the predictor performing logP prediction.
         """
-        X_query, cpd_name_query = self.create_testset(query_csv_file, True)
+        X_query, cpd_name_query, valid_mask = self.create_testset(query_csv_file, True)
         predictor = Model.load_predictor(model_path)
-        result_numbers = list(predictor.predict(X_query).flatten(order='C'))
+        predicted = iter(predictor.predict(X_query).flatten(order='C')) if len(X_query) > 0 else iter([])
+        result_numbers = [next(predicted) if is_valid else float('nan') for is_valid in valid_mask]
         return result_numbers
         
         
