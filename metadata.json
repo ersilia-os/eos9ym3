@@ -38,7 +38,7 @@
     "License": "MIT",
     "Contributor": "leilayesufu",
     "Incorporation Date": "2023-12-12",
-    "Last Packaging Date": "2026-07-22",
+    "Last Packaging Date": "2026-07-23",
     "Release": "v1.0.0",
     "S3": "https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos9ym3.zip",
     "DockerHub": "https://hub.docker.com/r/ersiliaos/eos9ym3",
@@ -48,10 +48,10 @@
     ],
     "Model Size": 45.0,
     "Environment Size": 2421.0,
-    "Image Size": 2501.97,
-    "Computational Performance 1": 39.89,
-    "Computational Performance 2": 135.48,
-    "Computational Performance 3": 492.72,
+    "Image Size": 2501.99,
+    "Computational Performance 1": 36.88,
+    "Computational Performance 2": 136.65,
+    "Computational Performance 3": 497.31,
     "Computational Performance 4": -1.0,
     "Computational Performance 5": -1.0
 }
