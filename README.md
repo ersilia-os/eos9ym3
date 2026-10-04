@@ -1,6 +1,6 @@
 # MRlogP: neural network-based logP prediction for druglike small molecules
 
-The authors use a two-step approach to build a model that accurately predicts the lipophilicity (LogP) of small molecules. First, they train the model on a large amount of low accuracy predicted LogP values and then they fine-tune the network using a small, accurate dataset of 244 druglike compounds. The model achieves an average root mean squared error of 0.988 and 0.715 against druglike molecules from Reaxys and PHYSPROP.
+Calculates the octanol-water partition coefficient, the lipophilicity measure underlying most absorption and distribution reasoning. Chen and colleagues built MRlogP by pretraining on a large body of predicted logP values and then fine-tuning on the far smaller set of experimentally measured ones, a transfer learning arrangement that addresses the chronic scarcity of measured data. Accuracy is best within drug-like ranges and degrades for very lipophilic or highly charged compounds.
 
 This model was incorporated on 2023-12-12.Last packaged on 2026-07-23.
 
@@ -23,7 +23,7 @@ This model was incorporated on 2023-12-12.Last packaged on 2026-07-23.
 ### Output
 - **Output Dimension:** `1`
 - **Output Consistency:** `Fixed`
-- **Interpretation:** Predicted LogP of small molecules
+- **Interpretation:** Predicted logP, where higher values indicate a more lipophilic compound.
 
 Below are the **Output Columns** of the model:
 | Name | Type | Direction | Description |
