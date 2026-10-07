@@ -1,6 +1,6 @@
 # MRlogP: neural network-based logP prediction for druglike small molecules
 
-Calculates the octanol-water partition coefficient, the lipophilicity measure underlying most absorption and distribution reasoning. Chen and colleagues built MRlogP by pretraining on a large body of predicted logP values and then fine-tuning on the far smaller set of experimentally measured ones, a transfer learning arrangement that addresses the chronic scarcity of measured data. Accuracy is best within drug-like ranges and degrades for very lipophilic or highly charged compounds.
+Calculates the octanol-water partition coefficient, the lipophilicity measure underlying most absorption and distribution reasoning. Chen and colleagues pretrained MRlogP on roughly 500,000 eMolecules structures carrying consensus predicted logP values, then fine-tuned it on 244 drug-like compounds with measured values, reaching root mean squared errors of 0.988 against Reaxys and 0.715 against PHYSPROP. Error tracks how densely each logP bin was populated in training, so accuracy falls away at both extremes of the scale and especially for strongly hydrophilic compounds.
 
 This model was incorporated on 2023-12-12.Last packaged on 2026-07-23.
 
@@ -23,7 +23,7 @@ This model was incorporated on 2023-12-12.Last packaged on 2026-07-23.
 ### Output
 - **Output Dimension:** `1`
 - **Output Consistency:** `Fixed`
-- **Interpretation:** Predicted logP, where higher values indicate a more lipophilic compound.
+- **Interpretation:** Predicted octanol-water partition coefficient on a log10 scale, where higher values mean greater lipophilicity.
 
 Below are the **Output Columns** of the model:
 | Name | Type | Direction | Description |
