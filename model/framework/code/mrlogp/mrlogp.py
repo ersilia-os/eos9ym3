@@ -70,7 +70,7 @@ class MRlogP():
         It returns two arrays representing features and labels for testing.
         """
         root = os.path.dirname(os.path.abspath(__file__))
-        scalar_path = os.path.abspath(os.path.join(root, "scaler3.pkl"))
+        scalar_path = os.path.abspath(os.path.join(root, "..", "..", "..", "checkpoints", "scaler3.pkl"))
         with open(scalar_path, 'rb') as scaler_file:
             self.scaler = pickle.load(scaler_file)
         
