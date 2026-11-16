@@ -3,7 +3,7 @@
 Calculates the octanol-water partition coefficient, the lipophilicity measure underlying most absorption and distribution reasoning. Chen and colleagues pretrained MRlogP on roughly 500,000 eMolecules structures carrying consensus predicted logP values, then fine-tuned it on 244 drug-like compounds with measured values, reaching root mean squared errors of 0.988 against Reaxys and 0.715 against PHYSPROP. Error tracks how densely each logP bin was populated in training, so accuracy falls away at both extremes of the scale and especially for strongly hydrophilic compounds.
 
 This model was incorporated on 2023-12-12.
-Last packaged on 2026-07-23.
+Last packaged on 2026-11-16.
 
 ## Information
 ### Identifiers
@@ -42,11 +42,11 @@ Below are the **Output Columns** of the model:
 ### Resource Consumption
 - **Model Size (Mb):** `45`
 - **Environment Size (Mb):** `2429`
-- **Image Size (Mb):** `2501.99`
+- **Image Size (Mb):** `989.13`
 
 **Computational Performance (seconds):**
-- 10 inputs: `36.88`
-- 100 inputs: `497.31`
+- 10 inputs: `28.53`
+- 100 inputs: `290.62`
 - 10000 inputs: `-1`
 
 ### References
